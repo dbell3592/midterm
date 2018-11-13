@@ -1,6 +1,87 @@
 Survey.Survey.cssType = "bootstrap";
 
-var surveyJSON = { pages: [{ name: "page1", elements: [{ type: "text", name: "name", title: "Please enter your name:", isRequired: true, placeHolder: "Jon Snow" }, { type: "text", name: "birthdate", title: "Your birthdate:", isRequired: true, inputType: "date" }, { type: "text", name: "color", title: "Your favorite color:", inputType: "color" }, { type: "text", name: "email", title: "Your e-mail:", isRequired: true, validators: [{ type: "email" }], inputType: "email", placeHolder: "jon.snow@nightwatch.org" }] }] }
+var json = {
+    questions: [
+        {
+            name: "name",
+            type: "text",
+            title: "Please enter your name:",
+            placeHolder: "Jon Snow",
+            isRequired: true
+        }, {
+            name: "birthdate",
+            type: "text",
+            inputType: "date",
+            title: "Your birthdate:",
+            isRequired: true
+            }, {
+            name: "first job",
+            type: "text",
+            inputType: "date",
+            title: "first job:",
+            isRequired: true
+            }, {
+            name: "previous employer",
+            type: "text",
+            inputType: "date",
+            title: "previous employer:",
+            isRequired: true
+            }, {
+            name: "position",
+            type: "text",
+            inputType: "date",
+            title: "position applying for?:",
+            isRequired: true
+            }, {
+            name: "refrences",
+            type: "text",
+            inputType: "date",
+            title: "refrences:",
+            isRequired: true
+            }, {
+            name: "recent jobs",
+            type: "text",
+            inputType: "date",
+            title: "recent jobs:",
+            isRequired: true
+            }, {
+            name: "skills",
+            type: "text",
+            inputType: "date",
+            title: "your skills:",
+            isRequired: true
+        }, {
+            name: "color",
+            type: "text",
+            inputType: "color",
+            title: "Your favorite color:"
+        }, {
+            name: "email",
+            type: "text",
+            inputType: "email",
+            title: "Your e-mail:",
+            placeHolder: "jon.snow@nightwatch.org",
+            isRequired: true,
+            validators: [
+                {
+                    type: "email"
+                }
+            ]
+        }
+    ]
+};
+
+window.survey = new Survey.Model(json);
+
+survey
+    .onComplete
+    .add(function (result) {
+        document
+            .querySelector('#surveyResult')
+            .innerHTML = "result: " + JSON.stringify(result.data);
+    });
+
+$("#surveyElement").Survey({model: survey});
 
 function sendDataToServer(survey) {
     //send Ajax request to your web server.
@@ -8,7 +89,7 @@ function sendDataToServer(survey) {
 }
 
 var survey = new Survey.Model(surveyJSON);
-$("#surveyContainer").Survey({
+$("#surveyElement").Survey({
     model: survey,
     onComplete: sendDataToServer
 });
